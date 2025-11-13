@@ -10,18 +10,33 @@ export function initFiltering(elements) {
         })
     }
 
-    const applyFiltering = (query, state, action) => {
+    const applyFiltering = (query, state, action) => { 
         // @todo: #4.2 — обработать очистку поля
-        if (action?.name === "clear") {
-            const parent = action.closest("[data-field]");
-            if (parent) {
-                const input = parent.querySelector("input, select");
-                const fieldName = action.dataset.field;
+        if (action?.name === "clear") { 
+            console.log("Clear button clicked", action);
+            const parent = action.closest(".filter-wrapper");
+            console.log("Parent filter wrapper:", parent);
+            
+            if (parent) { 
+                const input = parent.querySelector("input");
+                console.log("Found input element:", input);
+                
+                const fieldName = action.dataset.field; 
+                console.log("Field name:", fieldName);
 
-                if (input) input.value = "";
-                if (fieldName && state[fieldName] !== undefined) {
-                    state[fieldName] = "";
+                if (input) {
+                    input.value = ""; 
+                    console.log("Input value cleared");
+                    
+                    if (fieldName && state[fieldName] !== undefined) { 
+                        state[fieldName] = ""; 
+                        console.log("State cleared for field:", fieldName);
+                    }
+                } else {
+                    console.log("Input element not found in filter wrapper");
                 }
+            } else {
+                console.log("Filter wrapper not found");
             }
         }
 
